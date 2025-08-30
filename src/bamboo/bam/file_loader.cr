@@ -57,8 +57,8 @@ module Bamboo
       end
 
       def contigs : Array(String)
-        return [] of String unless (bam = @current_bam)
-        return [] of String unless (hdr = bam.header)
+        return [] of String unless bam = @current_bam
+        return [] of String unless hdr = bam.header
         hdr.target_names
       end
 

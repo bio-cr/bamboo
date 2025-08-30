@@ -17,7 +17,7 @@ module Bamboo
             Settings::COLUMN_COUNT
           end
 
-          column_type do |column|
+          column_type do |_column|
             UIng::Table::Value::Type::String
           end
 
@@ -44,7 +44,7 @@ module Bamboo
             UIng::Table::Value.new(value)
           end
 
-          set_cell_value do |row, column, value|
+          set_cell_value do |_row, _column, _value|
             # BAM data is read-only, so we do nothing
           end
         end

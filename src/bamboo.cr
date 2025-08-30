@@ -8,7 +8,6 @@ require "./bamboo/ui/search_panel"
 require "./bamboo/ui/menu_builder"
 require "./bamboo/bam_viewer"
 
-# TODO: Write documentation for `Bamboo`
 module Bamboo
   def self.run
     viewer = ViewerApp.new

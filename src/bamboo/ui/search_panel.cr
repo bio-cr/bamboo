@@ -56,7 +56,7 @@ module Bamboo
         hbox
       end
 
-      def set_contigs(@contigs : Array(String))
+      def contigs=(@contigs : Array(String))
         if combo = @contig_combo
           combo.clear
           @contigs.each { |name| combo.append(name) }

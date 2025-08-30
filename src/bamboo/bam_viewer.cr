@@ -81,16 +81,14 @@ module Bamboo
     end
 
     private def open_bam(file_path : String)
-      begin
-        alignments = @bam_reader.open(file_path)
-        @alignment_table.replace_rows(alignments)
-        @region_search_bar.set_contigs(@bam_reader.contigs)
+      alignments = @bam_reader.open(file_path)
+      @alignment_table.replace_rows(alignments)
+      @region_search_bar.contigs = @bam_reader.contigs
 
-        file_name = File.basename(file_path)
-        puts "Successfully loaded #{@alignment_table.size} alignments from #{file_name}"
-      rescue ex : Exception
-        puts "Failed to load file: #{ex.class}: #{ex.message}"
-      end
+      file_name = File.basename(file_path)
+      puts "Successfully loaded #{@alignment_table.size} alignments from #{file_name}"
+    rescue ex : Exception
+      puts "Failed to load file: #{ex.class}: #{ex.message}"
     end
 
     private def close_bam
