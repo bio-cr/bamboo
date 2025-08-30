@@ -1,18 +1,21 @@
 # bamboo
 
-TODO: Write a description here
+Bamboo is a lightweight BAM file viewer written in [Crystal](https://crystal-lang.org/).  
+It provides a simple native GUI for browsing alignment records.
 
 ## Installation
 
-TODO: Write installation instructions here
+```
+git clone https://github.com/bio-cr/bamboo
+cd bamboo
+shards build
+```
 
 ## Usage
 
-TODO: Write usage instructions here
-
-## Development
-
-TODO: Write development instructions here
+```
+bin/bamboo
+```
 
 ## Contributing
 
@@ -21,7 +24,4 @@ TODO: Write development instructions here
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
-
-## Contributors
-
-- [kojix2](https://github.com/your-github-user) - creator and maintainer
+6. 
