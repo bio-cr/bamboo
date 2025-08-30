@@ -1,6 +1,6 @@
 module Bamboo
   # BAM record structure for table display
-  struct BamRecord
+  struct Alignment
     property qname : String
     property flag : Int32
     property rname : String
