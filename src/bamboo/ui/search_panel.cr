@@ -16,7 +16,7 @@ module Bamboo
         hbox.padded = true
 
         # Chromosome selection
-        contig_label = UIng::Label.new("Chromosome:")
+        contig_label = UIng::Label.new("Contig:")
         hbox.append(contig_label, false)
 
         contig_combo = UIng::Combobox.new

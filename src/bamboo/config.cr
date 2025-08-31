@@ -8,8 +8,8 @@ module Bamboo
 
     COLUMN_NAMES = %w[QNAME FLAG RNAME POS MAPQ CIGAR RNEXT PNEXT TLEN SEQ QUAL]
 
-    WINDOW_WIDTH  = 1000
-    WINDOW_HEIGHT =  600
+    WINDOW_WIDTH  = 800
+    WINDOW_HEIGHT = 600
     WINDOW_TITLE  = "Bamboo - BAM File Viewer"
   end
 end

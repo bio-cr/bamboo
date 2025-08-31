@@ -29,7 +29,7 @@ module Bamboo
         Settings::WINDOW_WIDTH,
         Settings::WINDOW_HEIGHT,
         menubar: true,
-        margined: true
+        margined: false
       )
 
       @main_window.on_closing do
