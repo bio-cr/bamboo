@@ -4,19 +4,25 @@ module Bamboo
   module Bam
     class RecordAdapter
       def self.from_hts(record) : Alignment
-        cigar = record.cigar
+        cigar = record.cigar.to_s
+        qname = record.qname.empty? ? "unknown" : record.qname
+        rname = record.chrom.empty? ? "*" : record.chrom
+        rnext = record.mate_chrom.empty? ? "*" : record.mate_chrom
+        seq = record.seq.empty? ? "*" : record.seq
+        qual = record.qual_string.empty? ? "*" : record.qual_string
+
         Alignment.new(
-          qname: record.qname || "unknown",
+          qname: qname,
           flag: record.flag.value.to_i32,
-          rname: record.chrom || "*",
-          pos: (record.pos + 1).to_i32, # Convert to 1-based position
+          rname: rname,
+          pos: (record.pos + 1).to_i32,
           mapq: record.mapq.to_i32,
           cigar: cigar.empty? ? "*" : cigar,
-          rnext: record.mate_chrom || "*",
-          pnext: (record.mate_pos + 1).to_i32, # Convert to 1-based position
+          rnext: rnext,
+          pnext: (record.mate_pos + 1).to_i32,
           tlen: record.insert_size.to_i32,
-          seq: record.seq || "*",
-          qual: record.qual_string || "*"
+          seq: seq,
+          qual: qual
         )
       end
 
