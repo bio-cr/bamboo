@@ -39,6 +39,7 @@ module Bamboo
                     when  8 then record.tlen.to_s
                     when  9 then Bam::RecordAdapter.elide_seq(record.seq)
                     when 10 then Bam::RecordAdapter.elide_qual(record.qual)
+                    when 11 then record.aux
                     else         ""
                     end
             UIng::Table::Value.new(value)

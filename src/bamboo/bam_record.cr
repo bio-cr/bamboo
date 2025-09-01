@@ -12,10 +12,11 @@ module Bamboo
     property tlen : Int32
     property seq : String
     property qual : String
+    property aux : String
 
     def initialize(@qname : String, @flag : Int32, @rname : String, @pos : Int32,
                    @mapq : Int32, @cigar : String, @rnext : String, @pnext : Int32,
-                   @tlen : Int32, @seq : String, @qual : String)
+                   @tlen : Int32, @seq : String, @qual : String, @aux : String)
     end
   end
 end

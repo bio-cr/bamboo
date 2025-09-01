@@ -10,8 +10,9 @@ module Bamboo
         rnext = record.mate_chrom.empty? ? "*" : record.mate_chrom
         seq = record.seq.empty? ? "*" : record.seq
         qual = record.qual_string.empty? ? "*" : record.qual_string
-        pos1 = (record.pos + 1).to_i32 # 0-based to 1-based
+        pos1 = (record.pos + 1).to_i32       # 0-based to 1-based
         mpos1 = (record.mate_pos + 1).to_i32 # 0-based to 1-based
+        aux = record.aux.to_s
 
         Alignment.new(
           qname: qname,
@@ -24,7 +25,8 @@ module Bamboo
           pnext: mpos1,
           tlen: record.insert_size.to_i32,
           seq: seq,
-          qual: qual
+          qual: qual,
+          aux: aux
         )
       end
 

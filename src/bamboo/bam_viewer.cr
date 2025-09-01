@@ -1,5 +1,5 @@
 require "uing"
-require "./config"
+require "./settings"
 require "./bam/file_loader"
 require "./ui/table_manager"
 require "./ui/search_panel"

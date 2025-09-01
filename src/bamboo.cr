@@ -1,5 +1,5 @@
 require "./bamboo/version"
-require "./bamboo/config"
+require "./bamboo/settings"
 require "./bamboo/bam_record"
 require "./bamboo/bam/record_converter"
 require "./bamboo/bam/file_loader"
