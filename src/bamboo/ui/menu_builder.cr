@@ -33,13 +33,13 @@ module Bamboo
           append_about_item.on_clicked do |window|
             window.msg_box(
               "About Bamboo",
-              [
-                "Bamboo - BAM File Viewer",
-                "Version: #{Bamboo::VERSION}",
-                "Source: #{Bamboo::SOURCE}",
-                "",
-                "A Crystal application for viewing BAM files in table format.",
-              ].join('\n')
+              <<-TEXT
+              Bamboo - BAM File Viewer
+              Version: #{Bamboo::VERSION}
+              Source: #{Bamboo::SOURCE}
+ 
+              A Crystal application for viewing BAM files in table format.
+              TEXT
             )
           end
         end
