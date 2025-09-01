@@ -10,16 +10,18 @@ module Bamboo
         rnext = record.mate_chrom.empty? ? "*" : record.mate_chrom
         seq = record.seq.empty? ? "*" : record.seq
         qual = record.qual_string.empty? ? "*" : record.qual_string
+        pos1 = (record.pos + 1).to_i32 # 0-based to 1-based
+        mpos1 = (record.mate_pos + 1).to_i32 # 0-based to 1-based
 
         Alignment.new(
           qname: qname,
           flag: record.flag.value.to_i32,
           rname: rname,
-          pos: (record.pos + 1).to_i32,
+          pos: pos1,
           mapq: record.mapq.to_i32,
           cigar: cigar.empty? ? "*" : cigar,
           rnext: rnext,
-          pnext: (record.mate_pos + 1).to_i32,
+          pnext: mpos1,
           tlen: record.insert_size.to_i32,
           seq: seq,
           qual: qual

@@ -17,16 +17,23 @@ module Bamboo
           raise "BAM file does not exist: #{file_path}"
         end
 
-        @current_bam = HTS::Bam.open(file_path)
+        alignments = [] of Alignment
 
-        alignments = read_all(limit)
+        begin
+          @current_bam = HTS::Bam.open(file_path)
+          alignments = read_all(limit)
+          puts "Successfully loaded #{alignments.size} BAM alignments from #{file_path}"
+        rescue ex : Exception
+          puts "Error loading BAM file #{file_path}: #{ex.class}: #{ex.message}"
+          raise ex
+        ensure
+          if alignments.empty? && @current_bam
+            @current_bam.try &.close
+            @current_bam = nil
+          end
+        end
 
-        puts "Successfully loaded #{alignments.size} BAM alignments from #{file_path}"
         alignments
-      rescue ex : Exception
-        puts "Error loading BAM file #{file_path}: #{ex.class}: #{ex.message}"
-        @current_bam = nil
-        raise ex
       end
 
       def read_all(limit : Int32 = Settings::MAX_SEARCH_RESULTS) : Array(Alignment)
@@ -38,7 +45,8 @@ module Bamboo
 
         idx = 0
 
-        bam.each do |record|
+        # Use copy: false for better memory efficiency (reuses record objects)
+        bam.each(copy: false) do |record|
           if idx >= limit
             puts "Warning: Reached record limit of #{limit}, stopping load"
             break
@@ -64,6 +72,12 @@ module Bamboo
 
       def fetch(contig : String, start_pos : Int32, end_pos : Int32) : Array(Alignment)
         return [] of Alignment unless bam = @current_bam
+
+        # Check if BAM index is loaded (critical for query operations)
+        unless bam.index_loaded?
+          puts "Warning: BAM index not loaded, cannot perform region query"
+          return [] of Alignment
+        end
 
         # Validate input parameters
         if start_pos < 1 || end_pos < 1 || start_pos > end_pos
