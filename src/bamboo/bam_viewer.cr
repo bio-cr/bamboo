@@ -11,6 +11,7 @@ module Bamboo
     @alignment_table : UI::AlignmentTable
     @region_search_bar : UI::RegionSearchBar
     @main_window : UIng::Window
+    @vbox : UIng::Box
 
     def initialize
       UIng.init
@@ -38,7 +39,7 @@ module Bamboo
         true
       end
 
-      build_ui
+      @vbox = build_ui
       @main_window.show
     end
 
@@ -56,7 +57,7 @@ module Bamboo
       )
     end
 
-    private def build_ui
+    private def build_ui : UIng::Box
       vbox = UIng::Box.new :vertical
       vbox.padded = true
 
@@ -72,6 +73,7 @@ module Bamboo
       vbox.append(table, true)
 
       @main_window.child = vbox
+      vbox
     end
 
     private def open_file_dialog(window : UIng::Window)
@@ -134,6 +136,8 @@ module Bamboo
     end
 
     private def close
+      # FIXME: https://github.com/kojix2/uing/issues/6
+      @vbox.delete(1)
       @bam_reader.close
       @alignment_table.close
     end

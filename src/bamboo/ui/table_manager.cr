@@ -121,6 +121,7 @@ module Bamboo
       end
 
       def close
+        @table.try &.destroy
         @table_model.try &.free
       end
 
