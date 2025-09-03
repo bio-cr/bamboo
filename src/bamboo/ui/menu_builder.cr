@@ -37,7 +37,7 @@ module Bamboo
               Bamboo - BAM File Viewer
               Version: #{Bamboo::VERSION}
               Source: #{Bamboo::SOURCE}
- 
+
               A Crystal application for viewing BAM files in table format.
               TEXT
             )
