@@ -78,12 +78,9 @@ jobs:
         shell: bash
         run: |
           sudo apt-get update
-          # GUI dependencies for libui-ng backend (GTK3/Pango/etc.)
           sudo apt-get install -y --no-install-recommends \
             build-essential pkg-config \
-            libgtk-3-dev libpango1.0-dev libcairo2-dev libgdk-pixbuf-2.0-dev \
-            libx11-dev \
-            # htslib deps + system libhts
+            libgtk-3-dev libpango1.0-dev libcairo2-dev libgdk-pixbuf-2.0-dev libx11-dev \
             zlib1g-dev libbz2-dev liblzma-dev libdeflate-dev libcurl4-openssl-dev libhts-dev
 
           # Build Bamboo (GUI app). Do not execute it in CI (needs display).
