@@ -45,6 +45,7 @@ module Bamboo
 
     def run
       UIng.main
+      @main_window.destroy
       UIng.uninit
     end
 
