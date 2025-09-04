@@ -4,6 +4,7 @@ Bamboo is a lightweight BAM file viewer written in [Crystal](https://crystal-lan
 It provides a simple native GUI for browsing alignment records.
 
 ﻿﻿﻿![macos](https://github.com/user-attachments/assets/bdfc3496-adaa-4028-bad9-31256535cc0b)
+![ubuntu](https://github.com/user-attachments/assets/2a7a43f4-9073-4bad-a99c-42d9cb60ca8d)
 
 
 ## Installation
