@@ -175,7 +175,7 @@ jobs:
           STATIC_LIBS="-L$(pwd)/htslib -Wl,--start-group -l:libhts.a -lbz2 -llzma -lz -ldeflate -lregex -ltre -Wl,--end-group -lws2_32"
           echo "Using STATIC_LIBS=$STATIC_LIBS"
 
-          shards build --release --link-flags="$STATIC_LIBS"
+          shards build --release --link-flags="$STATIC_LIBS" --static
 
           PKG=bamboo-${VERSION}-${{ matrix.target }}
           mkdir -p "$PKG"
