@@ -3,7 +3,13 @@ require "uing"
 module Bamboo
   module UI
     class AppMenu
-      def self.build(open_file_callback : Proc(UIng::Window, Nil), close_file_callback : Proc(Nil), show_all_callback : Proc(Nil), refresh_callback : Proc(Nil))
+      def self.build(
+        open_file_callback : Proc(UIng::Window, Nil),
+        close_file_callback : Proc(Nil),
+        show_all_callback : Proc(Nil),
+        refresh_callback : Proc(Nil),
+        show_header_callback : Proc(Nil),
+      )
         # File menu
         UIng::Menu.new("File") do
           append_item("Open BAM File...").on_clicked do |window|
@@ -25,6 +31,10 @@ module Bamboo
           append_separator
           append_item("Refresh").on_clicked do |_window|
             refresh_callback.call
+          end
+          append_separator
+          append_item("Show Header").on_clicked do |_window|
+            show_header_callback.call
           end
         end
 

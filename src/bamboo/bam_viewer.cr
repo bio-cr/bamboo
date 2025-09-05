@@ -1,6 +1,6 @@
 require "uing"
 require "./settings"
-require "./bam/file_loader"
+require "./bam/bam_reader"
 require "./ui/table_manager"
 require "./ui/search_panel"
 require "./ui/menu_builder"
@@ -53,7 +53,8 @@ module Bamboo
         open_file_callback: ->(window : UIng::Window) { open_file_dialog(window) },
         close_file_callback: -> { close_bam },
         show_all_callback: -> { show_all },
-        refresh_callback: -> { refresh_view }
+        refresh_callback: -> { refresh_view },
+        show_header_callback: -> { show_header }
       )
     end
 
@@ -140,6 +141,31 @@ module Bamboo
       @vbox.delete(1)
       @bam_reader.close
       @alignment_table.close
+    end
+
+    private def show_header
+      header_window = UIng::Window.new(
+        "BAM Header",
+        600,
+        400,
+        menubar: false,
+        margined: true
+      )
+      box = UIng::Box.new(:vertical)
+      box.padded = true
+      header_window.child = box
+      header_text = UIng::MultilineEntry.new
+      header_text.read_only = true
+      header_text.text = @bam_reader.header_string || "No BAM file loaded or header unavailable"
+      label = UIng::Label.new(@bam_reader.file_path || "No file loaded")
+      box.append(label, false)
+      box.append(header_text, stretchy: true)
+
+      header_window.on_closing do
+        header_window.destroy
+        false
+      end
+      header_window.show
     end
   end
 end

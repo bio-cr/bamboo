@@ -5,6 +5,7 @@ module Bamboo
   module Bam
     class BamReader
       @current_bam : HTS::Bam?
+      getter file_path : String?
 
       def initialize
         @current_bam = nil
@@ -12,6 +13,8 @@ module Bamboo
 
       def open(file_path : String, limit : Int32 = Settings::INITIAL_RECORD_LIMIT) : Array(Alignment)
         close
+
+        @file_path = file_path
 
         unless File.exists?(file_path)
           raise "BAM file does not exist: #{file_path}"
@@ -68,6 +71,11 @@ module Bamboo
         return [] of String unless bam = @current_bam
         return [] of String unless hdr = bam.header
         hdr.target_names
+      end
+
+      # Returns BAM header text when available, otherwise nil
+      def header_string : String?
+        @current_bam.try &.header.try &.to_s
       end
 
       def fetch(contig : String, start_pos : Int32, end_pos : Int32) : Array(Alignment)
