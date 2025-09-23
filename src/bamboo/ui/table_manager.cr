@@ -101,6 +101,9 @@ module Bamboo
           end
 
           puts "Table data updated: #{@data.size} alignments (was #{old_size})"
+
+          # After data update, auto-size all columns
+          autosize_columns
         end
       end
 
@@ -110,6 +113,9 @@ module Bamboo
             table_model.row_changed(row)
           end
           puts "Table refreshed"
+
+          # Ensure columns are auto-sized after refresh as well
+          autosize_columns
         end
       end
 
@@ -136,6 +142,14 @@ module Bamboo
           if selected_row < @data.size
             record = @data[selected_row]
             puts "Selected: #{record.qname} at #{record.rname}:#{record.pos}"
+          end
+        end
+      end
+
+      private def autosize_columns
+        if table = @table
+          Settings::COLUMN_NAMES.size.times do |i|
+            table.column_set_width(i, -1)
           end
         end
       end
