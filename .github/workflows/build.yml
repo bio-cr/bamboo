@@ -125,6 +125,9 @@ jobs:
             make -j2
           )
 
+          # Remove dynamic libraries to avoid accidental dynamic linking
+          rm -f htslib/libhts.dylib htslib/libhts.*.dylib || true
+
           # Provide libhtslib.a for darwin (hts.cr links as -lhtslib on macOS)
           ln -sf "$(pwd)/htslib/libhts.a" "$(pwd)/htslib/libhtslib.a"
 
@@ -133,7 +136,7 @@ jobs:
           export CRYSTAL_LIBRARY_PATH="$(pwd)/htslib"
 
           # Force load static libhts and link required system libs
-          shards build --release --link-flags="-Wl,-force_load,$(pwd)/htslib/libhts.a -lbz2 -llzma -lz -framework CoreFoundation -framework SystemConfiguration"
+          shards build --release --link-flags="-L$(pwd)/htslib -Wl,-force_load,$(pwd)/htslib/libhts.a -lbz2 -llzma -lz -framework CoreFoundation -framework SystemConfiguration"
 
           # Verify no dynamic libhts is linked
           otool -L bin/$BIN | tee otool.txt
