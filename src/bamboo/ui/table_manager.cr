@@ -58,6 +58,11 @@ module Bamboo
           end
         end
 
+        # Set all column widths to automatic (-1) to enable auto-sizing
+        Settings::COLUMN_NAMES.size.times do |i|
+          table.column_set_width(i, -1)
+        end
+
         table.on_selection_changed do |selection|
           on_selection_changed(selection)
         end
