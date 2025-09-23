@@ -11,9 +11,16 @@ module Bamboo
       def initialize
       end
 
-      def build(search_callback : Proc(String, Int32, Int32, Nil), show_all_callback : Proc(Nil)) : UIng::Box
+      def build(search_callback : Proc(String, Int32, Int32, Nil), show_all_callback : Proc(Nil), open_file_callback : Proc(Nil)) : UIng::Box
         hbox = UIng::Box.new :horizontal
         hbox.padded = true
+
+        # Open button (placed to the left of Contig label)
+        open_button = UIng::Button.new("Open")
+        open_button.on_clicked do
+          open_file_callback.call
+        end
+        hbox.append(open_button, false)
 
         # Chromosome selection
         contig_label = UIng::Label.new("Contig:")

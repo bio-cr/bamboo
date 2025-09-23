@@ -65,7 +65,8 @@ module Bamboo
       # Create search UI
       search_box = @region_search_bar.build(
         search_callback: ->(contig : String, start : Int32, end_pos : Int32) { search_region(contig, start, end_pos) },
-        show_all_callback: -> { show_all }
+        show_all_callback: -> { show_all },
+        open_file_callback: -> { open_file_dialog(@main_window) }
       )
       vbox.append(search_box, false)
 
