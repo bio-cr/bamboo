@@ -2,9 +2,9 @@ version: 2.0
 shards:
   hts:
     git: https://github.com/bio-cr/hts.cr.git
-    version: 0.1.2+git.commit.c6bf673ef520211c301e796bc20f15b53553c645
+    version: 0.1.2+git.commit.336aea2996aa8287c171d3adb7eaec34f639152c
 
   uing:
     git: https://github.com/kojix2/uing.git
-    version: 0.0.3+git.commit.5a13c7ba0e4e73c4b254501e2885e120b6bdfad0
+    version: 0.0.3+git.commit.6a3581b2f03e791d7506d3090f1792f41d15bc96
 
