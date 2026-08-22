@@ -48,8 +48,8 @@ module Bamboo
 
         idx = 0
 
-        # Use copy: false for better memory efficiency (reuses record objects)
-        bam.each(copy: false) do |record|
+        # HTS::Bam#each reuses one record for allocation-efficient streaming.
+        bam.each do |record|
           if idx >= limit
             puts "Warning: Reached record limit of #{limit}, stopping load"
             break
@@ -81,9 +81,10 @@ module Bamboo
       def fetch(contig : String, start_pos : Int32, end_pos : Int32) : Array(Alignment)
         return [] of Alignment unless bam = @current_bam
 
-        # Check if BAM index is loaded (critical for query operations)
-        unless bam.index_loaded?
-          puts "Warning: BAM index not loaded, cannot perform region query"
+        # Indexes are loaded lazily by hts.cr. Probe and load the default
+        # index here so a freshly opened BAM with a valid .bai remains queryable.
+        unless bam.index_loaded? || bam.try_load_index
+          puts "Warning: BAM index not available, cannot perform region query"
           return [] of Alignment
         end
 
