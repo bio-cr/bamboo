@@ -94,6 +94,8 @@ jobs:
           )
 
           # Provide lib path for static link
+          cp htslib/htslib-uninstalled.pc htslib/htslib.pc
+          export PKG_CONFIG_PATH="$(pwd)/htslib${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}"
           export LIBRARY_PATH="$(pwd)/htslib"
           export CRYSTAL_LIBRARY_PATH="$(pwd)/htslib"
 
@@ -131,6 +133,8 @@ jobs:
           ln -sf "$(pwd)/htslib/libhts.a" "$(pwd)/htslib/libhtslib.a"
 
           # Prefer the local static libhts.a
+          cp htslib/htslib-uninstalled.pc htslib/htslib.pc
+          export PKG_CONFIG_PATH="$(pwd)/htslib${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}"
           export LIBRARY_PATH="$(pwd)/htslib"
           export CRYSTAL_LIBRARY_PATH="$(pwd)/htslib"
 
@@ -172,6 +176,8 @@ jobs:
           cd ..
 
           # Add local htslib to library search path
+          cp htslib/htslib-uninstalled.pc htslib/htslib.pc
+          export PKG_CONFIG_PATH="$(pwd)/htslib${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}"
           export LIBRARY_PATH="$(pwd)/htslib"
           export CRYSTAL_LIBRARY_PATH="$(pwd)/htslib"
           STATIC_LIBS="-L$(pwd)/htslib -Wl,--start-group -l:libhts.a -lbz2 -llzma -lz -ldeflate -lregex -ltre -lintl -Wl,--end-group -lws2_32"
