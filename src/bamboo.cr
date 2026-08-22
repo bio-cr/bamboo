@@ -14,5 +14,3 @@ module Bamboo
     viewer.run
   end
 end
-
-Bamboo.run

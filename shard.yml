@@ -5,7 +5,7 @@ authors:
 
 targets:
   bamboo:
-    main: src/bamboo.cr
+    main: src/bamboo/cli.cr
 
 dependencies:
   hts:

@@ -45,6 +45,7 @@ module Bamboo
 
     def run
       UIng.main
+    ensure
       UIng.uninit
     end
 
@@ -92,6 +93,8 @@ module Bamboo
       file_name = File.basename(file_path)
       puts "Successfully loaded #{@alignment_table.size} alignments from #{file_name}"
     rescue ex : Exception
+      @alignment_table.replace_rows([] of Alignment)
+      @region_search_bar.reset
       puts "Failed to load file: #{ex.class}: #{ex.message}"
     end
 

@@ -81,11 +81,12 @@ module Bamboo
       def selected_contig : String?
         if combo = @contig_combo
           idx = combo.selected
-          @contigs[idx] unless idx.negative?
+          @contigs[idx]? unless idx.negative?
         end
       end
 
       def reset
+        @contigs.clear
         if combo = @contig_combo
           combo.clear
         end
@@ -93,7 +94,7 @@ module Bamboo
           start_box.value = 1
         end
         if end_box = @end_spinbox
-          end_box.value = 1000
+          end_box.value = Settings::DEFAULT_REGION_END
         end
       end
 

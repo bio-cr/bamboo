@@ -14,29 +14,21 @@ module Bamboo
       def open(file_path : String, limit : Int32 = Settings::INITIAL_RECORD_LIMIT) : Array(Alignment)
         close
 
-        @file_path = file_path
-
         unless File.exists?(file_path)
           raise "BAM file does not exist: #{file_path}"
         end
 
-        alignments = [] of Alignment
-
         begin
           @current_bam = HTS::Bam.open(file_path)
+          @file_path = file_path
           alignments = read_all(limit)
           puts "Successfully loaded #{alignments.size} BAM alignments from #{file_path}"
+          alignments
         rescue ex : Exception
+          close
           puts "Error loading BAM file #{file_path}: #{ex.class}: #{ex.message}"
           raise ex
-        ensure
-          if alignments.empty? && @current_bam
-            @current_bam.try &.close
-            @current_bam = nil
-          end
         end
-
-        alignments
       end
 
       def read_all(limit : Int32 = Settings::MAX_SEARCH_RESULTS) : Array(Alignment)
@@ -121,11 +113,15 @@ module Bamboo
       end
 
       def close
-        @current_bam.try &.close
-        @current_bam = nil
+        begin
+          @current_bam.try &.close
+        ensure
+          @current_bam = nil
+          @file_path = nil
+        end
       end
 
-      def open?
+      def open? : Bool
         !@current_bam.nil?
       end
     end

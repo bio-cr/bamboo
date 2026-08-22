@@ -1,0 +1,3 @@
+require "../bamboo"
+
+Bamboo.run
