@@ -13,7 +13,7 @@ module Bamboo
         # File menu
         UIng::Menu.new("File") do
           append_item("Open BAM File...").on_clicked do |window|
-            open_file_callback.call(window)
+            open_file_callback.call(window) if window
           end
           append_separator
           append_item("Close File").on_clicked do |_window|
@@ -41,7 +41,7 @@ module Bamboo
         # Help menu
         UIng::Menu.new("Help") do
           append_about_item.on_clicked do |window|
-            window.msg_box(
+            window.try &.msg_box(
               "About Bamboo",
               <<-TEXT
               Bamboo - BAM File Viewer
