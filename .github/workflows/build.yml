@@ -31,24 +31,24 @@ jobs:
         with:
           crystal: latest
 
-      - name: Install Crystal (MinGW64)
+      - name: Install Crystal (UCRT64)
         if: matrix.os == 'windows-latest'
         uses: msys2/setup-msys2@v2
         with:
-          msystem: MINGW64
+          msystem: UCRT64
           update: true
           install: >-
             git
-            mingw-w64-x86_64-crystal
-            mingw-w64-x86_64-shards
-            mingw-w64-x86_64-toolchain
-            mingw-w64-x86_64-xz
-            mingw-w64-x86_64-curl
-            mingw-w64-x86_64-libdeflate
-            mingw-w64-x86_64-pkgconf
-            mingw-w64-x86_64-openssl
-            mingw-w64-x86_64-libtre
-            mingw-w64-x86_64-libsystre
+            mingw-w64-ucrt-x86_64-crystal
+            mingw-w64-ucrt-x86_64-shards
+            mingw-w64-ucrt-x86_64-toolchain
+            mingw-w64-ucrt-x86_64-xz
+            mingw-w64-ucrt-x86_64-curl
+            mingw-w64-ucrt-x86_64-libdeflate
+            mingw-w64-ucrt-x86_64-pkgconf
+            mingw-w64-ucrt-x86_64-openssl
+            mingw-w64-ucrt-x86_64-libtre
+            mingw-w64-ucrt-x86_64-libsystre
             zip
             file
 
@@ -67,7 +67,7 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: shards install --without-development
 
-      - name: Install dependencies (MinGW64)
+      - name: Install dependencies (UCRT64)
         if: matrix.os == 'windows-latest'
         shell: msys2 {0}
         run: shards install --without-development
@@ -170,13 +170,13 @@ jobs:
           cp README.md "$PKG/"
           tar czf "$PKG.tar.gz" "$PKG"
 
-      - name: Build on Windows (MinGW64 + static libhts)
+      - name: Build on Windows (UCRT64 + static libhts)
         if: matrix.os == 'windows-latest'
         shell: msys2 {0}
         run: |
           pacman -S --noconfirm --needed autoconf automake libtool make git \
-            mingw-w64-x86_64-toolchain mingw-w64-x86_64-bzip2 mingw-w64-x86_64-xz \
-            mingw-w64-x86_64-zlib mingw-w64-x86_64-libdeflate mingw-w64-x86_64-gettext
+            mingw-w64-ucrt-x86_64-toolchain mingw-w64-ucrt-x86_64-bzip2 mingw-w64-ucrt-x86_64-xz \
+            mingw-w64-ucrt-x86_64-zlib mingw-w64-ucrt-x86_64-libdeflate mingw-w64-ucrt-x86_64-gettext
 
           git clone --depth 1 --branch develop https://github.com/samtools/htslib.git htslib
           cd htslib
