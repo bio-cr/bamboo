@@ -80,8 +80,9 @@ module Bamboo
 
       def selected_contig : String?
         if combo = @contig_combo
-          idx = combo.selected
-          @contigs[idx]? unless idx.negative?
+          if idx = combo.selected
+            @contigs[idx]? unless idx.negative?
+          end
         end
       end
 
