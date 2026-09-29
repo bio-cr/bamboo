@@ -61,7 +61,6 @@ module Bamboo
 
     private def build_ui : UIng::Box
       vbox = UIng::Box.new :vertical
-      vbox.padded = true
 
       # Create search UI
       search_box = @region_search_bar.build(
